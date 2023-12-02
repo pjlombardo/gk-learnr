@@ -4,6 +4,8 @@
 # We simply extend it to include some other packages I use for 
 # learnr lessons and other visualizations.
 
+# BUILD from gk-learnr parente directory
+# docker build -t gk-learnr ~/gk-learnr/docker --no-cache
 
 From rocker/shiny-verse:4.3
 
@@ -14,16 +16,16 @@ Run R -e 'install.packages("sortable")'
 
 # scripts to for making learnr htmls
 Run mkdir /scripts
-ADD render_learnr.sh /scripts
-ADD render.R /scripts
+ADD docker/render_learnr.sh /scripts
+ADD docker/render.R /scripts
 
 # Copy leanr or shiny files
-COPY ../anova /srv/shiny-server/anova
-COPY ../endpoint-plot /srv/shiny-server/endpoint-plot
-COPY ../time-plot /srv/shiny-server/time-plot
-COPY ../css /srv/shiny-server/css
-COPY ../index.html /srv/shiny-server/index.html
-COPY ../images /srv/shiny-server/images
+COPY anova /srv/shiny-server/anova
+COPY endpoint-plot /srv/shiny-server/endpoint-plot
+COPY time-plot /srv/shiny-server/time-plot
+COPY css /srv/shiny-server/css
+COPY index.html /srv/shiny-server/index.html
+COPY images /srv/shiny-server/images
 
 # Run indexing scripts
 RUN sh /scripts/render_learnr.sh
